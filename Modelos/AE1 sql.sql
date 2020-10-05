@@ -14,17 +14,17 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `PlaceMyBet` DEFAULT CHARACTER SET utf8 ;
+USE `PlaceMyBet` ;
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Evento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Evento` (
+CREATE TABLE IF NOT EXISTS `PlaceMyBet`.`Evento` (
   `Id_evento` VARCHAR(45) NOT NULL,
   `Local` VARCHAR(30) NOT NULL,
   `Visitante` VARCHAR(30) NOT NULL,
-  `Fecha` DOUBLE NOT NULL,
+  `Fecha` DATETIME NOT NULL,
   PRIMARY KEY (`Id_evento`))
 ENGINE = InnoDB;
 
@@ -32,7 +32,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Mercado`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Mercado` (
+CREATE TABLE IF NOT EXISTS `PlaceMyBet`.`Mercado` (
   `over/under` DOUBLE NOT NULL,
   `cuota over` DOUBLE NOT NULL,
   `cuota under` DOUBLE NOT NULL,
@@ -40,10 +40,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Mercado` (
   `dinero under` DOUBLE NOT NULL,
   `Id_evento` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`over/under`),
-  INDEX `id_evento_idx` (`Id_evento` ASC) VISIBLE,
-  CONSTRAINT `id_evento`
     FOREIGN KEY (`Id_evento`)
-    REFERENCES `mydb`.`Evento` (`Id_evento`)
+    REFERENCES `PlaceMyBet`.`Evento` (`Id_evento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -52,52 +50,50 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Usuario` (
+CREATE TABLE IF NOT EXISTS `PlaceMyBet`.`Usuario` (
   `email` VARCHAR(45) NOT NULL,
   `Nombre` VARCHAR(30) NOT NULL,
   `Apellidos` VARCHAR(45) NOT NULL,
   `Edad` INT NOT NULL,
-  `num_tarjeta` VARCHAR(25) NOT NULL,
-  PRIMARY KEY (`email`))
+  PRIMARY KEY (`email`),
+  KEY idx_email (email))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Banco`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Banco` (
+CREATE TABLE IF NOT EXISTS `PlaceMyBet`.`Banco` (
   `num_tarjeta` VARCHAR(25) NOT NULL,
   `Saldo` DOUBLE NOT NULL,
   `Nom_banco` VARCHAR(25) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`num_tarjeta`),
-  CONSTRAINT `num_tarjeta`
-    FOREIGN KEY (`num_tarjeta`)
-    REFERENCES `mydb`.`Usuario` (`num_tarjeta`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  KEY idx_emailBanco (email))
 ENGINE = InnoDB;
+
+ALTER TABLE `PlaceMyBet`.`Banco`
+ADD FOREIGN KEY (email) REFERENCES `PlaceMyBet`.`Usuario`(email);
 
 
 -- -----------------------------------------------------
 -- Table `mydb`.`Apuesta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`Apuesta` (
+CREATE TABLE IF NOT EXISTS `PlaceMyBet`.`Apuesta` (
   `Id_apuesta` INT NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
   `dinero` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `over/under` DOUBLE NOT NULL,
   PRIMARY KEY (`Id_apuesta`),
-  INDEX `over/under_idx` (`over/under` ASC) VISIBLE,
-  INDEX `email_idx` (`email` ASC) VISIBLE,
   CONSTRAINT `over/under`
     FOREIGN KEY (`over/under`)
-    REFERENCES `mydb`.`Mercado` (`over/under`)
+    REFERENCES `PlaceMyBet`.`Mercado` (`over/under`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `email`
     FOREIGN KEY (`email`)
-    REFERENCES `mydb`.`Usuario` (`email`)
+    REFERENCES `PlaceMyBet`.`Usuario` (`email`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
