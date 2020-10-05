@@ -82,7 +82,7 @@ ADD FOREIGN KEY (email) REFERENCES `PlaceMyBet`.`Usuario`(email);
 CREATE TABLE IF NOT EXISTS `PlaceMyBet`.`Apuesta` (
   `Id_apuesta` INT NOT NULL,
   `tipo` VARCHAR(45) NOT NULL,
-  `dinero` VARCHAR(45) NOT NULL,
+  `dinero` DOUBLE NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `over/under` DOUBLE NOT NULL,
   PRIMARY KEY (`Id_apuesta`),
