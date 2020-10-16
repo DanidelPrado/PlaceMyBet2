@@ -102,3 +102,13 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+email,tipo,over/under,dinero - cuota - fecha
+
+SELECT apuesta.`email`,apuesta.`over/under`,apuesta.`dinero`,apuesta.tipo,mercado.`cuota over`,mercado.`cuota under`,evento.Fecha FROM apuesta INNER JOIN mercado ON
+apuesta.`over/under` = mercado.`over/under` INNER JOIN evento ON mercado.Id_evento = evento.Id_evento;
+
+insert into apuesta(Id_apuesta, tipo, dinero, email, `over/under`) VALUES (1003,'over',220,'PepeGB@gmail.com',1.5);
+
+insert into apuesta(Id_apuesta, tipo, dinero, email, `over/under`) values ('" + ap.Id_apuesta + "','" + ap.Tipo + "','" + ap.Dinero + "','" + ap.Email + "','" + ap.Over_under + "');
