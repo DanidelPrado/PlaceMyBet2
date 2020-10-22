@@ -8,10 +8,21 @@ using webAPI.Models;
 
 namespace webAPI.Controllers
 {
+    [Route("api/Apuesta/{action}")]
     public class ApuestaController : ApiController
     {
         // GET: api/Apuesta
-        public IEnumerable<ApuestaDTO> Get()
+        [HttpGet]
+        [ActionName("Get")]
+        public IEnumerable<Apuesta> Get()
+        {
+            ApuestaRepository rep = new ApuestaRepository();
+            List<Apuesta> lista = rep.retrieve();
+            return lista;
+        }
+        [HttpGet]
+        [ActionName("GetDTO")]
+        public IEnumerable<ApuestaDTO> GetDTO()
         {
             var repository = new ApuestaRepository();
             List<ApuestaDTO> apuestas = repository.retrieveDTO();

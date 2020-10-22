@@ -32,7 +32,7 @@ namespace webAPI.Models
 
                 while (reader.Read())
                 {
-                    Apuesta e = new Apuesta(reader.GetInt32(0), reader.GetString(1), reader.GetDouble(2), reader.GetString(3), reader.GetDouble(4));
+                    Apuesta e = new Apuesta(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetString(4), reader.GetInt32(5), reader.GetString(6), reader.GetString(7));
                     apuesta.Add(e);
 
                 }
@@ -50,7 +50,7 @@ namespace webAPI.Models
         {
             MySqlConnection conectar = conexion();
             MySqlCommand command = conectar.CreateCommand();
-            command.CommandText = "SELECT apuesta.`email`,apuesta.`over/under`,apuesta.`dinero`,apuesta.tipo,mercado.`cuota over`,mercado.`cuota under`,evento.Fecha FROM apuesta INNER JOIN mercado ON apuesta.`over/under` = mercado.`over/under` INNER JOIN evento ON mercado.Id_evento = evento.Id_evento;";
+            command.CommandText = "SELECT email,tipo_Mercado,cuota,tipo_Cuota,dinero,fecha FROM apuesta;";
 
             try
             {
@@ -60,7 +60,7 @@ namespace webAPI.Models
 
                 while (reader.Read())
                 {
-                    ApuestaDTO e = new ApuestaDTO(reader.GetString(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetString(3), reader.GetDouble(4), reader.GetDouble(5), reader.GetString(6));
+                    ApuestaDTO e = new ApuestaDTO(reader.GetString(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetString(3), reader.GetDouble(4), reader.GetString(5));
                     apuesta.Add(e);
 
                 }
@@ -87,42 +87,41 @@ namespace webAPI.Models
             culInfo.NumberFormat.CurrencyDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = culInfo;
 
-            command.CommandText = "select * from mercado where mercado.`over/under`=" + ap.Over_under + ";";
+            command.CommandText = "select * from mercado where id_Mercado=" + ap.Id_Mercado + ";";
             try
             {
                 conectar.Open();
-                MySqlDataReader res = command.ExecuteReader();
-                res.Read();
-                Debug.WriteLine(res.GetDouble(0) + " " + res.GetDouble(1) + " " + res.GetDouble(2) + " " + res.GetDouble(3) + " " + res.GetDouble(4) + " " + res.GetInt32(5));
-                Mercado mer = new Mercado(res.GetDouble(0), res.GetDouble(1), res.GetDouble(2), res.GetDouble(3), res.GetDouble(4), res.GetString(5));
+                MySqlDataReader reader = command.ExecuteReader();
+                reader.Read();
+                Mercado mer = new Mercado(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4), reader.GetDouble(5), reader.GetInt32(6));
 
                 double dineroOver = 0;
                 double dineroUnder = 0;
-                if (ap.Tipo == "over")
+                if (ap.Tipo_Cuota == "over")
                 {
-                    dineroOver = ap.Dinero + mer.Dinero_over;
-                    dineroUnder = mer.Dinero_under;
+                    dineroOver = ap.Dinero + mer.Dinero_Over;
+                    dineroUnder = mer.Dinero_Under;
                 }
                 else
                 {
-                    dineroOver = mer.Dinero_over;
-                    dineroUnder = ap.Dinero + mer.Dinero_under;
+                    dineroOver = mer.Dinero_Over;
+                    dineroUnder = ap.Dinero + mer.Dinero_Under;
                 }
 
                 double cuotaOver = dineroOver / (dineroOver + dineroUnder);
                 cuotaOver = (1 / cuotaOver) * 0.95;
                 double cuotaUnder = dineroUnder / (dineroUnder + dineroOver);
                 cuotaUnder = (1 / cuotaUnder) * 0.95;
-                res.Close();
+                reader.Close();
                 conectar.Close();
-                command.CommandText = "update mercado set `cuota over`=" + Math.Round(cuotaOver, 2) + ", `cuota under`=" + Math.Round(cuotaUnder, 2) + ", `dinero over`=" + dineroOver + ", `dinero under`=" + dineroUnder + " mercado.`over/under`=" + ap.Over_under + ";";
+                command.CommandText = "update mercado set cuota_Over=" + Math.Round(cuotaOver, 2) + ", cuota_Under=" + Math.Round(cuotaUnder, 2) + ", dinero_Over=" + dineroOver + ", dinero_Under=" + dineroUnder + " where id_Mercado=" + ap.Id_Mercado + ";";
                 try
                 {
                     conectar.Open();
                     command.ExecuteNonQuery();
                     conectar.Close();
                     double cuotaApuesta = 0;
-                    if (ap.Tipo == "under")
+                    if (ap.Tipo_Cuota == "under")
                     {
                         cuotaApuesta = cuotaUnder;
                     }
@@ -130,7 +129,7 @@ namespace webAPI.Models
                     {
                         cuotaApuesta = cuotaOver;
                     }
-                    command.CommandText = "insert into apuesta(tipo, dinero, email, `over/under`,cuota) values (" + ap.Tipo + ", " + ap.Dinero + ", " +  ap.Email + ", '" + ap.Over_under + ", '" + Math.Round(cuotaApuesta, 2) + "'); ";
+                    command.CommandText = "insert into apuesta(tipo_Mercado, cuota, dinero, fecha, id_Mercado, email, tipo_Cuota) values (" + ap.Tipo_Mercado + ", " + Math.Round(cuotaApuesta, 2) + ", " + ap.Dinero + ", '" + DateTime.Now.ToString("yyyy-MM-dd") + "', " + ap.Id_Mercado + ", '" + ap.Email + "', '" + ap.Tipo_Cuota + "');";
                     try
                     {
                         conectar.Open();

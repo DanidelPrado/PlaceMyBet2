@@ -31,7 +31,7 @@ namespace webAPI.Models
 
                 while (reader.Read())
                 {
-                    Mercado e = new Mercado(reader.GetDouble(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4), reader.GetString(5));
+                    Mercado e = new Mercado(reader.GetInt32(0), reader.GetDouble(1), reader.GetDouble(2), reader.GetDouble(3), reader.GetDouble(4), reader.GetDouble(5), reader.GetInt32(6));
                     mercado.Add(e);
 
                 }
@@ -49,7 +49,7 @@ namespace webAPI.Models
         {
             MySqlConnection conectar = conexion();
             MySqlCommand command = conectar.CreateCommand();
-            command.CommandText = "SELECT `over/under`,`cuota over`,`cuota under` FROM mercado";
+            command.CommandText = "SELECT tipo_Mercado,cuota_Over,cuota_Under FROM mercado";
 
             try
             {

@@ -8,10 +8,22 @@ using webAPI.Models;
 
 namespace webAPI.Controllers
 {
+    [Route("api/Mercado/{action}")]
     public class MercadoController : ApiController
     {
         // GET: api/Mercado
-        public IEnumerable<MercadoDTO> Get()
+        [HttpGet]
+        [ActionName("Get")]
+        public IEnumerable<Mercado> Get()
+        {
+            MercadoRepository repository = new MercadoRepository();
+            List<Mercado> mercados = repository.retrieve();
+            return mercados;
+        }
+
+        [HttpGet]
+        [ActionName("GetDTO")]
+        public IEnumerable<MercadoDTO> GetDTO()
         {
             var repository = new MercadoRepository();
             List<MercadoDTO> mercados = repository.retrieveDTO();

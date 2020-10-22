@@ -74,23 +74,5 @@ namespace webAPI.Models
         }
 
 
-        internal void Save(Evento ev)
-        {
-            MySqlConnection con = conexion();
-            MySqlCommand command = con.CreateCommand();
-            command.CommandText = "select local, visitante, fecha from evento;";
-            Debug.WriteLine("comando " + command.CommandText);
-            try
-            {
-                con.Open();
-                command.ExecuteNonQuery();
-                con.Close();
-            }
-            catch (MySqlException e)
-            {
-                Debug.WriteLine("Se ha producido un error de conexión");
-            }
-
-        }
     }
 }

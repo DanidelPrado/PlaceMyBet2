@@ -7,41 +7,45 @@ namespace webAPI.Models
 {
     public class Apuesta
     {
-        public Apuesta(int id_apuesta, string tipo, double dinero, string email, double over_under)
+        public Apuesta(int id_Apuesta, double tipo_Mercado, double cuota, double dinero, string fecha, int id_Mercado, string email, string tipo_Cuota)
         {
-            Id_apuesta = id_apuesta;
-            Tipo = tipo;
+            Id_Apuesta = id_Apuesta;
+            Tipo_Mercado = tipo_Mercado;
+            Cuota = cuota;
             Dinero = dinero;
+            Fecha = fecha;
+            Id_Mercado = id_Mercado;
             Email = email;
-            Over_under = over_under;
+            Tipo_Cuota = tipo_Cuota;
         }
 
-        public int Id_apuesta { get; set; }
-        public string Tipo { get; set; }
+        public int Id_Apuesta { get; set; }
+        public double Tipo_Mercado { get; set; }
+        public double Cuota { get; set; }
         public double Dinero { get; set; }
+        public string Fecha { get; set; }
+        public int Id_Mercado { get; set; }
         public string Email { get; set; }
-        public double Over_under { get; set; }
+        public string Tipo_Cuota { get; set; }
     }
 
     public class ApuestaDTO
     {
-        public ApuestaDTO(string email, double over_under, double dinero, string tipo, double cuota_over, double cuota_under, string fecha)
+        public ApuestaDTO(string email, double tipo_Mercado, double cuota, string tipo_Cuota, double dinero, string fecha)
         {
-            Tipo = tipo;
-            Dinero = dinero;
             Email = email;
-            Over_under = over_under;
-            Cuota_over = cuota_over;
-            Cuota_under = cuota_under;
+            Tipo_Mercado = tipo_Mercado;
+            Cuota = cuota;
+            Tipo_Cuota = tipo_Cuota;
+            Dinero = dinero;
             Fecha = fecha;
         }
 
-        public string Tipo { get; set; }
-        public double Dinero { get; set; }
         public string Email { get; set; }
-        public double Over_under { get; set; }
-        public double Cuota_over { get; set; }
-        public double Cuota_under { get; set; }
+        public double Tipo_Mercado { get; set; }
+        public double Cuota { get; set; }
+        public string Tipo_Cuota { get; set; }
+        public double Dinero { get; set; }
         public string Fecha { get; set; }
     }
 }
