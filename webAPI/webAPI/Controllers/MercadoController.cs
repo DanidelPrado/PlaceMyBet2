@@ -37,12 +37,12 @@ namespace webAPI.Controllers
         }
 
         // POST: api/Mercado
-        public void Post([FromBody]string value)
+        public void Post([FromBody] string value)
         {
         }
 
         // PUT: api/Mercado/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] string value)
         {
         }
 

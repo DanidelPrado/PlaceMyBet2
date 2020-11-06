@@ -36,12 +36,12 @@ namespace webAPI.Controllers
         }
 
         // POST: api/Evento
-        public void Post([FromBody]string value)
+        public void Post([FromBody] string value)
         {
         }
 
         // PUT: api/Evento/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] string value)
         {
         }
 

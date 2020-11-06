@@ -36,14 +36,14 @@ namespace webAPI.Controllers
         }
 
         // POST: api/Apuesta
-        public void Post([FromBody]Apuesta apuesta)
+        public void Post([FromBody] Apuesta apuesta)
         {
             var repo = new ApuestaRepository();
             repo.Save(apuesta);
         }
 
         // PUT: api/Apuesta/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] string value)
         {
         }
 
