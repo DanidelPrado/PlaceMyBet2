@@ -29,12 +29,6 @@ namespace webAPI.Controllers
             return apuestas;
         }
 
-        // GET: api/Apuesta/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST: api/Apuesta
         public void Post([FromBody] Apuesta apuesta)
         {

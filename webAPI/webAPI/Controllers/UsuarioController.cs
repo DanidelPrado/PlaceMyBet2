@@ -18,12 +18,6 @@ namespace webAPI.Controllers
             return usuarios;
         }
 
-        // GET: api/Usuario/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST: api/Usuario
         public void Post([FromBody] string value)
         {

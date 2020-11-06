@@ -29,12 +29,6 @@ namespace webAPI.Controllers
             return eventos;
         }
 
-        // GET: api/Evento/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST: api/Evento
         public void Post([FromBody] string value)
         {
