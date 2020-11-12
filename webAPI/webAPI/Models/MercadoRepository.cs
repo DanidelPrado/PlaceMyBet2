@@ -9,17 +9,17 @@ namespace webAPI.Models
 {
     public class MercadoRepository
     {
-        private MySqlConnection conexion()
+        /*private MySqlConnection conexion()
         {
             string connectionString = "datasource=127.0.0.1;port=3306;username=root;password=;database=placemybet;SslMode=none";
             MySqlConnection conexion = new MySqlConnection(connectionString);
             return conexion;
 
-        }
+        }*/
 
         internal List<Mercado> retrieve()
         {
-            MySqlConnection conectar = conexion();
+            /*MySqlConnection conectar = conexion();
             MySqlCommand command = conectar.CreateCommand();
             command.CommandText = "SELECT * FROM mercado";
 
@@ -42,12 +42,13 @@ namespace webAPI.Models
             {
                 Debug.WriteLine("Error al conectar a la base de datos. ");
                 return null;
-            }
+            }*/
+            return null;
         }
 
         internal List<MercadoDTO> retrieveDTO()
         {
-            MySqlConnection conectar = conexion();
+            /*MySqlConnection conectar = conexion();
             MySqlCommand command = conectar.CreateCommand();
             command.CommandText = "SELECT tipo_Mercado,cuota_Over,cuota_Under FROM mercado";
 
@@ -70,7 +71,8 @@ namespace webAPI.Models
             {
                 Debug.WriteLine("Error al conectar a la base de datos. ");
                 return null;
-            }
+            }*/
+            return null;
         }
     }
 }

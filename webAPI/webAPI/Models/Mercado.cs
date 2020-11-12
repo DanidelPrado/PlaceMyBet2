@@ -9,7 +9,7 @@ namespace webAPI.Models
     {
         public Mercado(int id_Mercado, double cuota_Over, double cuota_Under, double dinero_Over, double dinero_Under, double tipo_Mercado, int id_Evento)
         {
-            Id_Mercado = id_Mercado;
+            MercadoId = id_Mercado;
             Cuota_Over = cuota_Over;
             Cuota_Under = cuota_Under;
             Dinero_Over = dinero_Over;
@@ -18,13 +18,17 @@ namespace webAPI.Models
             Id_Evento = id_Evento;
         }
 
-        public int Id_Mercado { get; set; }
+        public int MercadoId { get; set; }
         public double Cuota_Over { get; set; }
         public double Cuota_Under { get; set; }
         public double Dinero_Over { get; set; }
         public double Dinero_Under { get; set; }
         public double Tipo_Mercado { get; set; }
         public int Id_Evento { get; set; }
+        public List<Apuesta> ListaApuestas { get; set; }
+        public Evento Evento { get; set; }
+
+        public Mercado() { }
     }
 
     public class MercadoDTO

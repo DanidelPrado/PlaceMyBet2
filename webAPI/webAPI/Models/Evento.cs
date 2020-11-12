@@ -7,18 +7,21 @@ namespace webAPI.Models
 {
     public class Evento
     {
-        public Evento(string id_evento, string local, string visitante, string fecha)
+        public Evento(int id_evento, string local, string visitante, string fecha)
         {
-            Id_evento = id_evento;
+            EventoId = id_evento;
             Local = local;
             Visitante = visitante;
             Fecha = fecha;
         }
 
-        public string Id_evento { get; set; }
+        public int EventoId { get; set; }
         public string Local { get; set; }
         public string Visitante { get; set; }
         public string Fecha { get; set; }
+        public List<Mercado> ListaMercados { get; set; }
+
+        public Evento() { }
     }
 
     public class EventoDTO
