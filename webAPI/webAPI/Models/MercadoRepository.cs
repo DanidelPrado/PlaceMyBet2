@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -42,8 +43,14 @@ namespace webAPI.Models
             {
                 Debug.WriteLine("Error al conectar a la base de datos. ");
                 return null;
-            }*/
-            return null;
+            }
+            return null;*/
+            List<Mercado> listaMercados = new List<Mercado>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                listaMercados = context.Mercados.Include(p => p.Evento).ToList();
+            }
+            return listaMercados;
         }
 
         internal List<MercadoDTO> retrieveDTO()
@@ -71,8 +78,20 @@ namespace webAPI.Models
             {
                 Debug.WriteLine("Error al conectar a la base de datos. ");
                 return null;
-            }*/
-            return null;
+            }
+            return null;*/
+            List<MercadoDTO> listaMercados = new List<MercadoDTO>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                listaMercados = context.Mercados.Select(p => ToDTO(p)).ToList();
+            }
+            return listaMercados;
+        }
+
+        static public MercadoDTO ToDTO(Mercado m)
+        {
+            return new MercadoDTO(m.Tipo_Mercado, m.Cuota_Over, m.Cuota_Under);
+
         }
     }
 }

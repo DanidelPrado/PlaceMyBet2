@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -47,11 +48,17 @@ namespace webAPI.Models
                 {
                     Debug.WriteLine("Error al conectar a la base de datos. ");
                     return null;
-                }*/
-            return null;
+                }
+            return null;*/
+            List<Apuesta> listaApuestas = new List<Apuesta>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                listaApuestas = context.Apuestas.Include(p => p.Mercado).ToList();
+            }
+            return listaApuestas;
         }
 
-        internal List<ApuestaDTO> retrieveDTO()
+        internal List<ApuestaDTO> retrieveDTO(Apuesta ap)
         {
             /*
                 MySqlConnection conectar = conexion();
@@ -77,8 +84,19 @@ namespace webAPI.Models
                 {
                     Debug.WriteLine("Error al conectar a la base de datos. ");
                     return null;
-                }*/
-            return null;
+                }
+            return null;*/
+            List<Apuesta> listaApuestas = new List<Apuesta>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                listaApuestas = context.Apuestas.Include(p => p.Mercado).ToList();
+            }
+            List<ApuestaDTO> listaApuestasDTO = new List<ApuestaDTO>();
+            for (int i = 0; i < listaApuestas.Count; i++)
+            {
+                listaApuestasDTO.Add(ToDTO(listaApuestas[i]));
+            }
+            return listaApuestasDTO;
         }
 
         internal void Save(Apuesta ap)
@@ -162,6 +180,31 @@ namespace webAPI.Models
 
             }
             */
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            Mercado mercado;
+            mercado = context.Mercados.FirstOrDefault(m => m.MercadoId == ap.Id_Mercado);
+            if (ap.Tipo_Cuota.ToLower() == "over")
+            {
+                mercado.Dinero_Over += ap.Dinero;
+            } else
+            {
+                mercado.Dinero_Under += ap.Dinero;
+            }
+
+            double cu_Ov = mercado.Dinero_Over / (mercado.Dinero_Over + mercado.Dinero_Under);
+            mercado.Cuota_Over = Math.Round((1 / cu_Ov) * 0.95,2);
+            double cu_Un = mercado.Dinero_Under / (mercado.Dinero_Over + mercado.Dinero_Under);
+            mercado.Cuota_Under = Math.Round((1 / cu_Un) * 0.95, 2);
+            context.Mercados.Update(mercado);
+            context.Apuestas.Add(ap);
+            context.SaveChanges();
+        }
+        static public ApuestaDTO ToDTO(Apuesta ap)
+        {
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            Mercado mercado;
+            mercado = context.Mercados.FirstOrDefault(m => m.MercadoId == ap.Id_Mercado);
+            return new ApuestaDTO(ap.UsuarioId, ap.Tipo_Cuota, ap.Cuota, ap.Dinero, mercado.EventoId, ap.Mercado);
         }
     }
 }

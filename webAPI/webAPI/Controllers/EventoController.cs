@@ -24,13 +24,17 @@ namespace webAPI.Controllers
         }
 
         // PUT: api/Evento/5
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, string l, string v)
         {
+            EventoRepository repository = new EventoRepository();
+            repository.Put(id, l, v);
         }
 
         // DELETE: api/Evento/5
         public void Delete(int id)
         {
+            EventoRepository repository = new EventoRepository();
+            repository.Delete(id);
         }
     }
 }

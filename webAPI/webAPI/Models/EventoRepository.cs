@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -42,8 +43,14 @@ namespace webAPI.Models
             {
                 Debug.WriteLine("Error al conectar a la base de datos. ");
                 return null;
-            }*/
-            return null;
+            }
+            return null;*/
+            List<Evento> listaEventos = new List<Evento>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                listaEventos = context.Eventos.ToList();
+            }
+            return listaEventos;
         }
 
         internal List<EventoDTO> retrieveDTO()
@@ -71,10 +78,38 @@ namespace webAPI.Models
             {
                 Debug.WriteLine("Error al conectar a la base de datos. ");
                 return null;
-            }*/
-            return null;
+            }
+            return null;*/
+            List<EventoDTO> eventos = new List<EventoDTO>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                eventos = context.Eventos.Select(p => ToDTO(p)).ToList();
+            }
+            return eventos;
         }
 
+        static public EventoDTO ToDTO(Evento e)
+        {
+            return new EventoDTO(e.Local, e.Visitante);
+        }
 
+        internal void Put(int id, string local, string visitante)
+        {
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            Evento evento;
+            evento = context.Eventos.FirstOrDefault(e => e.EventoId == id);
+            evento.Local = local;
+            evento.Visitante = visitante;
+            context.SaveChanges();
+        }
+
+        internal void Delete(int id)
+        {
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            Evento evento;
+            evento = context.Eventos.FirstOrDefault(e => e.EventoId == id);
+            context.Eventos.Remove(evento);
+            context.SaveChanges();
+        }
     }
 }

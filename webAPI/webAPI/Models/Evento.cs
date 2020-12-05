@@ -26,15 +26,13 @@ namespace webAPI.Models
 
     public class EventoDTO
     {
-        public EventoDTO(string local, string visitante, string fecha)
+        public EventoDTO(string local, string visitante)
         {
             Local = local;
             Visitante = visitante;
-            Fecha = fecha;
         }
 
         public string Local { get; set; }
         public string Visitante { get; set; }
-        public string Fecha { get; set; }
     }
 }

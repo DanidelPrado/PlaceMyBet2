@@ -15,7 +15,7 @@ namespace webAPI.Models
             Dinero_Over = dinero_Over;
             Dinero_Under = dinero_Under;
             Tipo_Mercado = tipo_Mercado;
-            Id_Evento = id_Evento;
+            EventoId = id_Evento;
         }
 
         public int MercadoId { get; set; }
@@ -24,7 +24,7 @@ namespace webAPI.Models
         public double Dinero_Over { get; set; }
         public double Dinero_Under { get; set; }
         public double Tipo_Mercado { get; set; }
-        public int Id_Evento { get; set; }
+        public int EventoId { get; set; }
         public List<Apuesta> ListaApuestas { get; set; }
         public Evento Evento { get; set; }
 

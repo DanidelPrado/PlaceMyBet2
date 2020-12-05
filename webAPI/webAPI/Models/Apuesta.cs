@@ -15,7 +15,7 @@ namespace webAPI.Models
             Dinero = dinero;
             Fecha = fecha;
             Id_Mercado = id_Mercado;
-            Id_Usuario = email;
+            UsuarioId = email;
             Tipo_Cuota = tipo_Cuota;
         }
 
@@ -26,7 +26,7 @@ namespace webAPI.Models
         public string Fecha { get; set; }
         public int Id_Mercado { get; set; }
         public string Tipo_Cuota { get; set; }
-        public string Id_Usuario { get; set; }
+        public string UsuarioId { get; set; }
         public Mercado Mercado { get; set; }
         public Usuario Usuario { get; set; }
 
@@ -35,21 +35,21 @@ namespace webAPI.Models
 
     public class ApuestaDTO
     {
-        public ApuestaDTO(string email, double tipo_Mercado, double cuota, string tipo_Cuota, double dinero, string fecha)
+        public ApuestaDTO(string email, string tipo_Cuota, double cuota, double dinero, int evento_Id, Mercado mercado)
         {
-            Email = email;
-            Tipo_Mercado = tipo_Mercado;
-            Cuota = cuota;
+            UsuarioId = email;
             Tipo_Cuota = tipo_Cuota;
+            Cuota = cuota;
             Dinero = dinero;
-            Fecha = fecha;
+            EventoId = evento_Id;
+            Mercado = mercado;
         }
 
-        public string Email { get; set; }
-        public double Tipo_Mercado { get; set; }
-        public double Cuota { get; set; }
+        public string UsuarioId { get; set; }
         public string Tipo_Cuota { get; set; }
+        public double Cuota { get; set; }
         public double Dinero { get; set; }
-        public string Fecha { get; set; }
+        public int EventoId { get; set; }
+        public Mercado Mercado { get; set; }
     }
 }
