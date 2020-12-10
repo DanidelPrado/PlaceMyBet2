@@ -58,7 +58,7 @@ namespace webAPI.Models
             return listaApuestas;
         }
 
-        internal List<ApuestaDTO> retrieveDTO(Apuesta ap)
+        internal List<ApuestaDTO> retrieveDTO()
         {
             /*
                 MySqlConnection conectar = conexion();

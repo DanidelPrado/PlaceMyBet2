@@ -11,16 +11,18 @@ namespace webAPI.Controllers
     public class MercadoController : ApiController
     {
         // GET: api/Mercado
-        public IEnumerable<Mercado> Get()
+        public IEnumerable<MercadoDTO> Get()
         {
             MercadoRepository repository = new MercadoRepository();
-            List<Mercado> mercados = repository.retrieve();
+            List<MercadoDTO> mercados = repository.retrieveDTO();
             return mercados;
         }
 
         // POST: api/Mercado
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Mercado mercado)
         {
+            MercadoRepository repository = new MercadoRepository();
+            repository.Save(mercado);
         }
 
         // PUT: api/Mercado/5

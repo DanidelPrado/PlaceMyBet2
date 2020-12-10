@@ -11,10 +11,10 @@ namespace webAPI.Controllers
     public class ApuestaController : ApiController
     {
         // GET: api/Apuesta
-        public IEnumerable<Apuesta> Get()
+        public IEnumerable<ApuestaDTO> Get()
         {
             var repository = new ApuestaRepository();
-            List<Apuesta> apuestas = repository.retrieve();
+            List<ApuestaDTO> apuestas = repository.retrieveDTO();
             return apuestas;
         }
 

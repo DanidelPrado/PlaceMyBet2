@@ -88,10 +88,17 @@ namespace webAPI.Models
             return listaMercados;
         }
 
-        static public MercadoDTO ToDTO(Mercado m)
+        static public MercadoDTO ToDTO(Mercado mercado)
         {
-            return new MercadoDTO(m.Tipo_Mercado, m.Cuota_Over, m.Cuota_Under);
+            return new MercadoDTO(mercado.Tipo_Mercado, mercado.Cuota_Over, mercado.Cuota_Under);
 
+        }
+
+        internal void Save(Mercado mercado)
+        {
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            context.Mercados.Add(mercado);
+            context.SaveChanges();
         }
     }
 }
