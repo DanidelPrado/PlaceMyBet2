@@ -7,7 +7,7 @@ namespace webAPI.Models
 {
     public class Apuesta
     {
-        public Apuesta(int id_Apuesta, double tipo_Mercado, double cuota, double dinero, string fecha, int id_Mercado, string email, string tipo_Cuota)
+        public Apuesta(int id_Apuesta, double tipo_Mercado, double cuota, double dinero, string fecha, int id_Mercado, string email, string tipo_Cuota,int eventoId)
         {
             ApuestaId = id_Apuesta;
             Tipo_Mercado = tipo_Mercado;
@@ -15,8 +15,9 @@ namespace webAPI.Models
             Dinero = dinero;
             Fecha = fecha;
             Id_Mercado = id_Mercado;
-            Id_Usuario = email;
+            UsuarioId = email;
             Tipo_Cuota = tipo_Cuota;
+            EventoId = eventoId;
         }
 
         public int ApuestaId { get; set; }
@@ -26,7 +27,8 @@ namespace webAPI.Models
         public string Fecha { get; set; }
         public int Id_Mercado { get; set; }
         public string Tipo_Cuota { get; set; }
-        public string Id_Usuario { get; set; }
+        public string UsuarioId { get; set; }
+        public int EventoId { get; set; }
         public Mercado Mercado { get; set; }
         public Usuario Usuario { get; set; }
 

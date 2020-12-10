@@ -34,9 +34,9 @@ namespace webAPI.Models
 
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
-            modelbuilder.Entity<Apuesta>().HasData(new Apuesta(1, 1.5, 1.87, 200, "2020-10-14", 1, "AnaRS@gmail.com", "over"));
-            modelbuilder.Entity<Apuesta>().HasData(new Apuesta(2, 2.5, 2.39, 150, "2020-09-15", 2, "JuanPL@gmail.com", "under"));
-            modelbuilder.Entity<Apuesta>().HasData(new Apuesta(3, 3.5, 1.92, 175, "2020-09-16", 3, "PepeGB@gmail.com", "over"));
+            modelbuilder.Entity<Apuesta>().HasData(new Apuesta(1, 1.5, 1.87, 200, "2020-10-14", 1, "AnaRS@gmail.com", "over",1));
+            modelbuilder.Entity<Apuesta>().HasData(new Apuesta(2, 2.5, 2.39, 150, "2020-09-15", 2, "JuanPL@gmail.com", "under",2));
+            modelbuilder.Entity<Apuesta>().HasData(new Apuesta(3, 3.5, 1.92, 175, "2020-09-16", 3, "PepeGB@gmail.com", "over",3));
             modelbuilder.Entity<Evento>().HasData(new Evento(1, "Valencia", "Espanyol", "2020-10-17"));
             modelbuilder.Entity<Evento>().HasData(new Evento(2, "Barcelona", "Valladolid", "2020-10-30"));
             modelbuilder.Entity<Evento>().HasData(new Evento(3, "Madrid", "Villareal", "2020 -10-23"));
