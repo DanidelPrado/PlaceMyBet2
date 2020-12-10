@@ -18,6 +18,12 @@ namespace webAPI.Controllers
             return mercados;
         }
 
+        public Mercado Get(int id)
+        {
+            MercadoRepository repository = new MercadoRepository();
+            Mercado mercados = repository.retrieveById(id);
+            return mercados;
+        }
         // POST: api/Mercado
         public void Post([FromBody] string value)
         {

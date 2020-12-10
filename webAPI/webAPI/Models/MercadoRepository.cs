@@ -42,10 +42,24 @@ namespace webAPI.Models
             {
                 Debug.WriteLine("Error al conectar a la base de datos. ");
                 return null;
-            }*/
-            return null;
+            }
+            return null;*/
+            List<Mercado> listaMercados = new List<Mercado>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                listaMercados = context.Mercados.ToList();
+            }
+            return listaMercados;
         }
 
+        internal Mercado retrieveById(int id)
+        {
+            using (var context = new PlaceMyBetContext())
+            {
+                var mercado = context.Mercados.FirstOrDefault(b => b.MercadoId == id);
+                return mercado;
+            }
+        }
         internal List<MercadoDTO> retrieveDTO()
         {
             /*MySqlConnection conectar = conexion();

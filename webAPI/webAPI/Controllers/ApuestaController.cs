@@ -13,11 +13,17 @@ namespace webAPI.Controllers
         // GET: api/Apuesta
         public IEnumerable<Apuesta> Get()
         {
-            var repository = new ApuestaRepository();
+            ApuestaRepository repository = new ApuestaRepository();
             List<Apuesta> apuestas = repository.retrieve();
             return apuestas;
         }
 
+        public Apuesta Get(int id)
+        {
+            ApuestaRepository repository = new ApuestaRepository();
+            Apuesta apuesta = repository.retrieveById(id);
+            return apuesta;
+        }
         // POST: api/Apuesta
         public void Post([FromBody] Apuesta apuesta)
         {

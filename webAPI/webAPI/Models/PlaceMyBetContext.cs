@@ -20,6 +20,7 @@ namespace webAPI.Models
         }
 
         public PlaceMyBetContext(DbContextOptions options)
+            : base(options)
         {
         }
 

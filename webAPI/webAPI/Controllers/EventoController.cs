@@ -19,8 +19,10 @@ namespace webAPI.Controllers
         }
 
         // POST: api/Evento
-        public void Post([FromBody] string value)
+        public void Post([FromBody] Evento ev)
         {
+            EventoRepository repository = new EventoRepository();
+            repository.Save(ev);
         }
 
         // PUT: api/Evento/5

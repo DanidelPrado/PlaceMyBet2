@@ -47,8 +47,23 @@ namespace webAPI.Models
                 {
                     Debug.WriteLine("Error al conectar a la base de datos. ");
                     return null;
-                }*/
-            return null;
+                }
+            return null;*/
+            List<Apuesta> listaApuestas = new List<Apuesta>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                listaApuestas = context.Apuestas.ToList();
+            }
+            return listaApuestas;
+        }
+
+        internal Apuesta retrieveById(int id)
+        {
+            using (var context = new PlaceMyBetContext())
+            {
+                var apuesta = context.Apuestas.FirstOrDefault(a => a.ApuestaId == id);
+                return apuesta;
+            }
         }
 
         internal List<ApuestaDTO> retrieveDTO()

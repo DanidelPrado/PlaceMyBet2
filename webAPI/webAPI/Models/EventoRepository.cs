@@ -42,8 +42,21 @@ namespace webAPI.Models
             {
                 Debug.WriteLine("Error al conectar a la base de datos. ");
                 return null;
-            }*/
-            return null;
+            }
+            return null;*/
+            List<Evento> listaEventos = new List<Evento>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                listaEventos = context.Eventos.ToList();
+            }
+            return listaEventos;
+        }
+
+        internal void Save(Evento ev)
+        {
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            context.Eventos.Add(ev);
+            context.SaveChanges();
         }
 
         internal List<EventoDTO> retrieveDTO()
