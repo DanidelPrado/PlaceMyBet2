@@ -86,17 +86,12 @@ namespace webAPI.Models
                     return null;
                 }
             return null;*/
-            List<Apuesta> listaApuestas = new List<Apuesta>();
+            List<ApuestaDTO> listaApuestas = new List<ApuestaDTO>();
             using (PlaceMyBetContext context = new PlaceMyBetContext())
             {
-                listaApuestas = context.Apuestas.Include(p => p.Mercado).ToList();
+                listaApuestas = context.Apuestas.Include(a => a.Mercado).Select(p => ToDTO(p)).ToList();
             }
-            List<ApuestaDTO> listaApuestasDTO = new List<ApuestaDTO>();
-            for (int i = 0; i < listaApuestas.Count; i++)
-            {
-                listaApuestasDTO.Add(ToDTO(listaApuestas[i]));
-            }
-            return listaApuestasDTO;
+            return listaApuestas;
         }
 
         internal void Save(Apuesta ap)
@@ -201,10 +196,7 @@ namespace webAPI.Models
         }
         static public ApuestaDTO ToDTO(Apuesta ap)
         {
-            PlaceMyBetContext context = new PlaceMyBetContext();
-            Mercado mercado;
-            mercado = context.Mercados.FirstOrDefault(m => m.MercadoId == ap.Id_Mercado);
-            return new ApuestaDTO(ap.UsuarioId, ap.Tipo_Cuota, ap.Cuota, ap.Dinero, mercado.EventoId, ap.Mercado);
+            return new ApuestaDTO(ap.UsuarioId, ap.Tipo_Cuota, ap.Cuota, ap.Dinero, ap.EventoId, ap.Mercado);
         }
     }
 }

@@ -47,8 +47,7 @@ namespace webAPI.Migrations
                     Dinero_Over = table.Column<double>(nullable: false),
                     Dinero_Under = table.Column<double>(nullable: false),
                     Tipo_Mercado = table.Column<double>(nullable: false),
-                    Id_Evento = table.Column<int>(nullable: false),
-                    EventoId = table.Column<int>(nullable: true)
+                    EventoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,7 +57,7 @@ namespace webAPI.Migrations
                         column: x => x.EventoId,
                         principalTable: "Eventos",
                         principalColumn: "EventoId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,9 +72,9 @@ namespace webAPI.Migrations
                     Fecha = table.Column<string>(nullable: true),
                     Id_Mercado = table.Column<int>(nullable: false),
                     Tipo_Cuota = table.Column<string>(nullable: true),
-                    Id_Usuario = table.Column<string>(nullable: true),
-                    MercadoId = table.Column<int>(nullable: true),
-                    UsuarioId = table.Column<string>(nullable: true)
+                    UsuarioId = table.Column<string>(nullable: true),
+                    EventoId = table.Column<int>(nullable: false),
+                    MercadoId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -92,6 +91,46 @@ namespace webAPI.Migrations
                         principalTable: "Usuarios",
                         principalColumn: "UsuarioId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Eventos",
+                columns: new[] { "EventoId", "Fecha", "Local", "Visitante" },
+                values: new object[,]
+                {
+                    { 1, "2020-10-17", "Valencia", "Espanyol" },
+                    { 2, "2020-10-30", "Barcelona", "Valladolid" },
+                    { 3, "2020 -10-23", "Madrid", "Villareal" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Usuarios",
+                columns: new[] { "UsuarioId", "Apellido", "Edad", "Nombre" },
+                values: new object[,]
+                {
+                    { "AnaRS@gmail.com", "Rodríguez Sánchez", 25, "Ana" },
+                    { "JuanPL@gmail.com", "Pérez López", 27, "Juan" },
+                    { "PepeGB@gmail.com", "Gómez Botella", 23, "Pepe" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Apuestas",
+                columns: new[] { "ApuestaId", "Cuota", "Dinero", "EventoId", "Fecha", "Id_Mercado", "MercadoId", "Tipo_Cuota", "Tipo_Mercado", "UsuarioId" },
+                values: new object[,]
+                {
+                    { 1, 1.8700000000000001, 200.0, 0, "2020-10-14", 1, null, "over", 1.5, "AnaRS@gmail.com" },
+                    { 2, 2.3900000000000001, 150.0, 0, "2020-09-15", 2, null, "under", 2.5, "JuanPL@gmail.com" },
+                    { 3, 1.9199999999999999, 175.0, 0, "2020-09-16", 3, null, "over", 3.5, "PepeGB@gmail.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Mercados",
+                columns: new[] { "MercadoId", "Cuota_Over", "Cuota_Under", "Dinero_Over", "Dinero_Under", "EventoId", "Tipo_Mercado" },
+                values: new object[,]
+                {
+                    { 1, 1.4299999999999999, 2.8500000000000001, 100.0, 50.0, 1, 1.5 },
+                    { 2, 1.8999999999999999, 1.8999999999999999, 100.0, 100.0, 2, 2.5 },
+                    { 3, 2.8500000000000001, 1.4299999999999999, 50.0, 100.0, 3, 3.5 }
                 });
 
             migrationBuilder.CreateIndex(

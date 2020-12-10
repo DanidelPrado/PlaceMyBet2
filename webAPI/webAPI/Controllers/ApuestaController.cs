@@ -13,7 +13,7 @@ namespace webAPI.Controllers
         // GET: api/Apuesta
         public IEnumerable<ApuestaDTO> Get()
         {
-            var repository = new ApuestaRepository();
+            ApuestaRepository repository = new ApuestaRepository();
             List<ApuestaDTO> apuestas = repository.retrieveDTO();
             return apuestas;
         }
@@ -21,8 +21,8 @@ namespace webAPI.Controllers
         // POST: api/Apuesta
         public void Post([FromBody] Apuesta apuesta)
         {
-            var repo = new ApuestaRepository();
-            repo.Save(apuesta);
+            ApuestaRepository repository = new ApuestaRepository();
+            repository.Save(apuesta);
         }
 
         // PUT: api/Apuesta/5

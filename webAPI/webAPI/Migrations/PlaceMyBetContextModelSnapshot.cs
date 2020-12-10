@@ -29,14 +29,14 @@ namespace webAPI.Migrations
                     b.Property<double>("Dinero")
                         .HasColumnType("double");
 
+                    b.Property<int>("EventoId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Fecha")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int>("Id_Mercado")
                         .HasColumnType("int");
-
-                    b.Property<string>("Id_Usuario")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<int?>("MercadoId")
                         .HasColumnType("int");
@@ -64,33 +64,36 @@ namespace webAPI.Migrations
                             ApuestaId = 1,
                             Cuota = 1.8700000000000001,
                             Dinero = 200.0,
+                            EventoId = 0,
                             Fecha = "2020-10-14",
                             Id_Mercado = 1,
-                            Id_Usuario = "AnaRS@gmail.com",
                             Tipo_Cuota = "over",
-                            Tipo_Mercado = 1.5
+                            Tipo_Mercado = 1.5,
+                            UsuarioId = "AnaRS@gmail.com"
                         },
                         new
                         {
                             ApuestaId = 2,
                             Cuota = 2.3900000000000001,
                             Dinero = 150.0,
+                            EventoId = 0,
                             Fecha = "2020-09-15",
                             Id_Mercado = 2,
-                            Id_Usuario = "JuanPL@gmail.com",
                             Tipo_Cuota = "under",
-                            Tipo_Mercado = 2.5
+                            Tipo_Mercado = 2.5,
+                            UsuarioId = "JuanPL@gmail.com"
                         },
                         new
                         {
                             ApuestaId = 3,
                             Cuota = 1.9199999999999999,
                             Dinero = 175.0,
+                            EventoId = 0,
                             Fecha = "2020-09-16",
                             Id_Mercado = 3,
-                            Id_Usuario = "PepeGB@gmail.com",
                             Tipo_Cuota = "over",
-                            Tipo_Mercado = 3.5
+                            Tipo_Mercado = 3.5,
+                            UsuarioId = "PepeGB@gmail.com"
                         });
                 });
 
@@ -155,10 +158,7 @@ namespace webAPI.Migrations
                     b.Property<double>("Dinero_Under")
                         .HasColumnType("double");
 
-                    b.Property<int?>("EventoId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id_Evento")
+                    b.Property<int>("EventoId")
                         .HasColumnType("int");
 
                     b.Property<double>("Tipo_Mercado")
@@ -178,7 +178,7 @@ namespace webAPI.Migrations
                             Cuota_Under = 2.8500000000000001,
                             Dinero_Over = 100.0,
                             Dinero_Under = 50.0,
-                            Id_Evento = 1,
+                            EventoId = 1,
                             Tipo_Mercado = 1.5
                         },
                         new
@@ -188,7 +188,7 @@ namespace webAPI.Migrations
                             Cuota_Under = 1.8999999999999999,
                             Dinero_Over = 100.0,
                             Dinero_Under = 100.0,
-                            Id_Evento = 2,
+                            EventoId = 2,
                             Tipo_Mercado = 2.5
                         },
                         new
@@ -198,7 +198,7 @@ namespace webAPI.Migrations
                             Cuota_Under = 1.4299999999999999,
                             Dinero_Over = 50.0,
                             Dinero_Under = 100.0,
-                            Id_Evento = 3,
+                            EventoId = 3,
                             Tipo_Mercado = 3.5
                         });
                 });
@@ -260,7 +260,9 @@ namespace webAPI.Migrations
                 {
                     b.HasOne("webAPI.Models.Evento", "Evento")
                         .WithMany("ListaMercados")
-                        .HasForeignKey("EventoId");
+                        .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

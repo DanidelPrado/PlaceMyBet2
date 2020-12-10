@@ -80,11 +80,8 @@ namespace webAPI.Models
                 return null;
             }
             return null;*/
-            List<MercadoDTO> listaMercados = new List<MercadoDTO>();
-            using (PlaceMyBetContext context = new PlaceMyBetContext())
-            {
-                listaMercados = context.Mercados.Select(p => ToDTO(p)).ToList();
-            }
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            List<MercadoDTO> listaMercados = context.Mercados.Select(p => ToDTO(p)).ToList();
             return listaMercados;
         }
 
