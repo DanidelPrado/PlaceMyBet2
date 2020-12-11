@@ -177,13 +177,15 @@ namespace webAPI.Models
             */
             PlaceMyBetContext context = new PlaceMyBetContext();
             Mercado mercado;
-            mercado = context.Mercados.FirstOrDefault(m => m.MercadoId == ap.Id_Mercado);
+            mercado = context.Mercados.FirstOrDefault(m => m.MercadoId == ap.MercadoId);
             if (ap.Tipo_Cuota.ToLower() == "over")
             {
                 mercado.Dinero_Over += ap.Dinero;
+                ap.Cuota = mercado.Cuota_Over;
             } else
             {
                 mercado.Dinero_Under += ap.Dinero;
+                ap.Cuota = mercado.Cuota_Under;
             }
 
             double cu_Ov = mercado.Dinero_Over / (mercado.Dinero_Over + mercado.Dinero_Under);
