@@ -11,21 +11,21 @@ namespace webAPI.Controllers
     public class EventosExamenController : ApiController
     {
         // GET: api/EventosExamen
+        //Ejercicio 1
         public IEnumerable<EventoDTO2> Get(string val)
         {
             EventoRepository repository = new EventoRepository();
-            List<EventoDTO2> eventos = repository.retrievebyLocal(val);
+            List<EventoDTO2> eventos = repository.retrievebyRival(val);
             return eventos;
         }
 
 
         // POST: api/EventosExamen
+        //Ejercicio 2
         public void Post([FromBody] Evento evento, [FromBody] Mercado mercado)
         {
-            EventoRepository repository2 = new EventoRepository();
-            repository2.Save(evento);
-            MercadoRepository repository = new MercadoRepository();
-            repository.Save(mercado);
+            EventoRepository repository = new EventoRepository();
+            repository.Save(evento,mercado);
         }
 
         // PUT: api/EventosExamen/5

@@ -51,4 +51,27 @@ namespace webAPI.Models
         public double Cuota_Over { get; set; }
         public double Cuota_Under { get; set; }
     }
+    //Ejercicio 2
+    public class EventoDTO3
+    {
+        public EventoDTO3(string local, string visitante, double tipo_Mercado, double cuota_over, double cuota_under, double dinero_over, double dinero_under)
+        {
+            Local = local;
+            Visitante = visitante;
+            Tipo_Mercado = tipo_Mercado;
+            Cuota_Over = cuota_over;
+            Cuota_Under = cuota_under;
+            Dinero_Over = dinero_over;
+            Dinero_Under = dinero_under;
+        }
+
+        public string Local { get; set; }
+        public string Visitante { get; set; }
+        public double Tipo_Mercado { get; set; }
+        public double Cuota_Over { get; set; }
+        public double Cuota_Under { get; set; }
+        public double Dinero_Over { get; set; }
+        public double Dinero_Under { get; set; }
+    }
+    
 }

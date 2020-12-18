@@ -110,7 +110,7 @@ namespace webAPI.Models
             }
         }
         //Ejercicio 1
-        internal List<EventoDTO2> retrievebyLocal(string equipo)
+        internal List<EventoDTO2> retrievebyRival(string equipo)
         {
             List<Evento> listaevento;
             List<EventoDTO2> listafinal = new List<EventoDTO2>();
@@ -125,15 +125,17 @@ namespace webAPI.Models
             return listafinal;
         }
         //Ejercicio 2
-        internal void Save(Evento ev)
+        internal void Save(Evento ev,Mercado mer)
         {
             PlaceMyBetContext context = new PlaceMyBetContext();
             using (context)
             {
                 context.Eventos.Add(ev);
+                context.Mercados.Add(mer);
                 context.SaveChanges();
             }
         }
+        
             internal void Put(int id, string local, string visitante)
         {
             PlaceMyBetContext context = new PlaceMyBetContext();
@@ -144,7 +146,7 @@ namespace webAPI.Models
             context.SaveChanges();
         }
 
-        internal void Delete(int id)
+            internal void Delete(int id)
         {
             PlaceMyBetContext context = new PlaceMyBetContext();
             Evento evento;
