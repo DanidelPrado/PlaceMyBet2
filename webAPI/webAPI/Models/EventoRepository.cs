@@ -92,6 +92,17 @@ namespace webAPI.Models
         {
             return new EventoDTO(e.Local, e.Visitante);
         }
+        //Ejercicio 1
+        static public EventoDTO2 ToDTO2(Evento e)
+        {
+            List<Mercado> eventos = new List<Mercado>();
+            Mercado m;
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                eventos = context.Mercados.Select(p => p).ToList();
+            }
+            return new EventoDTO2(e.Visitante,eventos.MercadoId,eventos.Cuota_Over,eventos.Cuota_Under);
+        }
 
         internal void Put(int id, string local, string visitante)
         {

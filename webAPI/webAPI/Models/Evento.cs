@@ -35,4 +35,20 @@ namespace webAPI.Models
         public string Local { get; set; }
         public string Visitante { get; set; }
     }
+    //Ejercicio 1
+    public class EventoDTO2
+    {
+        public EventoDTO2(string visitante, int idMercado, double cuota_over, double cuota_under)
+        {
+            Visitante = visitante;
+            MercadoId = idMercado;
+            Cuota_Over = cuota_over;
+            Cuota_Under = cuota_under;
+        }
+
+        public string Visitante { get; set; }
+        public int MercadoId { get; set; }
+        public double Cuota_Over { get; set; }
+        public double Cuota_Under { get; set; }
+    }
 }
