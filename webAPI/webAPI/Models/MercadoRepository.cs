@@ -99,3 +99,58 @@ namespace webAPI.Models
         }
     }
 }
+
+/*
+ static public ApuestaDTO3 toDTO3(Apuesta a)
+        {
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            Usuario u;
+            using (context)
+            {
+                u = context.Usuarios.Single(b => b.UsuarioId == a.UsuarioId);
+
+            }
+            return new ApuestaDTO3(a.dinero, a.tipoCuota, u.Nombre);
+}
+internal List<ApuestaDTO3> RetrievebyId(int id)
+        {
+            List<Apuesta> lista;
+            List<ApuestaDTO3> final = new List<ApuestaDTO3>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                lista = context.Apuestas.Where(a => a.MercadoId == id).ToList();
+            }
+            for(int i = 0; i < lista.Count; i++)
+            {
+                final.Add(toDTO3(lista[i]));
+            }
+            return final;
+        }
+ static public ApuestaDTO4 toDTO4(Apuesta a)
+        {
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            Evento e;
+            Mercado m;
+            using (context)
+            {
+                m = context.Mercados.Single(p => p.MercadoId == a.MercadoId);
+                e = context.Eventos.Single(p => p.EventoId == m.EventoId);
+            }
+            return new ApuestaDTO4(a.tipoCuota, e.Local, e.Visitante);
+        }
+
+internal List<ApuestaDTO4> RetrievebyId(int id)
+        {
+            List<Apuesta> lista;
+            List<ApuestaDTO4> final = new List<ApuestaDTO4>();
+            using (PlaceMyBetContext context = new PlaceMyBetContext())
+            {
+                lista = context.Apuestas.Where(a => a.dinero > id).ToList();
+            }
+            for(int i = 0; i < lista.Count; i++)
+            {
+                final.Add(toDTO4(lista[i]));
+            }
+            return final;
+        }
+ */
