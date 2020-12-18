@@ -118,7 +118,17 @@ namespace webAPI.Models
             }
             return listafinal;
         }
-        internal void Put(int id, string local, string visitante)
+        //Ejercicio 2
+        internal void Save(Evento ev)
+        {
+            PlaceMyBetContext context = new PlaceMyBetContext();
+            using (context)
+            {
+                context.Eventos.Add(ev);
+                context.SaveChanges();
+            }
+        }
+            internal void Put(int id, string local, string visitante)
         {
             PlaceMyBetContext context = new PlaceMyBetContext();
             Evento evento;

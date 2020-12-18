@@ -18,15 +18,14 @@ namespace webAPI.Controllers
             return eventos;
         }
 
-        // GET: api/EventosExamen/5
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST: api/EventosExamen
-        public void Post([FromBody]string value)
+        public void Post([FromBody] Evento evento, [FromBody] Mercado mercado)
         {
+            EventoRepository repository2 = new EventoRepository();
+            repository2.Save(evento);
+            MercadoRepository repository = new MercadoRepository();
+            repository.Save(mercado);
         }
 
         // PUT: api/EventosExamen/5
