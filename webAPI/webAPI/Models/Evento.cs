@@ -38,15 +38,15 @@ namespace webAPI.Models
     //Ejercicio 1
     public class EventoDTO2
     {
-        public EventoDTO2(string visitante, int idMercado, double cuota_over, double cuota_under)
+        public EventoDTO2(string rival, int idMercado, double cuota_over, double cuota_under)
         {
-            Visitante = visitante;
+            Rival = rival;
             MercadoId = idMercado;
             Cuota_Over = cuota_over;
             Cuota_Under = cuota_under;
         }
 
-        public string Visitante { get; set; }
+        public string Rival { get; set; }
         public int MercadoId { get; set; }
         public double Cuota_Over { get; set; }
         public double Cuota_Under { get; set; }

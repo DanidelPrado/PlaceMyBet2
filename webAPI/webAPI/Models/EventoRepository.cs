@@ -93,7 +93,7 @@ namespace webAPI.Models
             return new EventoDTO(e.Local, e.Visitante);
         }
         //Ejercicio 1
-        static public EventoDTO2 ToDTO2(Evento e)
+        static public EventoDTO2 ToDTO2(Evento e,string equipo)
         {
             PlaceMyBetContext context = new PlaceMyBetContext();
             Mercado m;
@@ -101,20 +101,26 @@ namespace webAPI.Models
             {
                 m = context.Mercados.FirstOrDefault(b => b.EventoId == e.EventoId);
             }
-            return new EventoDTO2(e.Visitante, m.MercadoId, m.Cuota_Over,m.Cuota_Under);
+            if (e.Local == equipo)
+            {
+                return new EventoDTO2(e.Visitante, m.MercadoId, m.Cuota_Over, m.Cuota_Under);
+            } else
+            {
+                return new EventoDTO2(e.Local, m.MercadoId, m.Cuota_Over, m.Cuota_Under);
+            }
         }
         //Ejercicio 1
-        internal List<EventoDTO2> retrievebyLocal(string local)
+        internal List<EventoDTO2> retrievebyLocal(string equipo)
         {
             List<Evento> listaevento;
             List<EventoDTO2> listafinal = new List<EventoDTO2>();
             using (PlaceMyBetContext context = new PlaceMyBetContext())
             {
-                listaevento = context.Eventos.Where(a => a.Local == local).ToList();
+                listaevento = context.Eventos.Where(a => a.Local == equipo || a.Visitante == equipo).ToList();
             }
             for (int i = 0; i < listaevento.Count; i++)
             {
-                listafinal.Add(ToDTO2(listaevento[i]));
+                listafinal.Add(ToDTO2(listaevento[i], equipo));
             }
             return listafinal;
         }
