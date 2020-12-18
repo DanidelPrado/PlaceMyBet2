@@ -325,6 +325,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApuestaController.cs" />
     <Compile Include="Controllers\EventoController.cs" />
+    <Compile Include="Controllers\EventosExamenController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MercadoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />

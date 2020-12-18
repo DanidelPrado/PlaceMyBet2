@@ -44,18 +44,4 @@ namespace webAPI.Models
         public double Cuota_over { get; set; }
         public double Cuota_under { get; set; }
     }
-
-    public class MercadoDTO2
-    {
-        public MercadoDTO2(int idMercado, double cuota_over, double cuota_under)
-        {
-            MercadoId = idMercado;
-            Cuota_Over = cuota_over;
-            Cuota_Under = cuota_under;
-        }
-
-        public int MercadoId { get; set; }
-        public double Cuota_Over { get; set; }
-        public double Cuota_Under { get; set; }
-    }
 }
